@@ -35,8 +35,9 @@ ambientLightFolder.addColor(ambientLight, 'color')
 //Directional Light
 */
 
-const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.5)
-scene.add(directionalLight, directionalLight.target)
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.34)
+scene.add(directionalLight)
+directionalLight.position.set(1, 2.9, -1.9)
 
 const directionalLightFolder = gui.addFolder('DirectionalLight')
 directionalLightFolder.close()
@@ -63,8 +64,10 @@ dlRotationFolder.add(directionalLight.rotation, 'z').min(0).max(Math.PI*2).step(
 // Hemispherical Light
 */
 
-const hemisphericalLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.5)
+const hemisphericalLight = new THREE.HemisphereLight(0xff00bb, 0x0011ff, 0.03)
 scene.add(hemisphericalLight)
+
+hemisphericalLight.position.set(-3, 0.7, -2.7)
 
 const hemisphericalLightFolder = gui.addFolder('HemisphericalLight')
 hemisphericalLightFolder.close()
@@ -89,15 +92,15 @@ hlRotationFolder.add(hemisphericalLight.rotation, 'z').min(0).max(Math.PI*2).ste
 /*
 //Point Light
 */
-const pointLight = new THREE.PointLight(0xffffff, 0.5, 1)
-pointLight.position.set(1, -0.5, 1)
+const pointLight = new THREE.PointLight(0x001eff, 1, 0, 10)
+pointLight.position.set(1.7, 1.9, 1.4)
 scene.add(pointLight)
 
 const pointLightFolder = gui.addFolder('PointLight')
 pointLightFolder.close()
-pointLightFolder.add(pointLight, 'intensity').min(0).max(100).step(1).name('Intensity')
-pointLightFolder.add(pointLight, 'distance').min(0).max(10).step(0.1).name('Distance')
-pointLightFolder.add(pointLight, 'decay').min(0).max(10).step(0.1).name('Decay')
+pointLightFolder.add(pointLight, 'intensity').min(0).max(100).step(0.1).name('Intensity')
+pointLightFolder.add(pointLight, 'distance').min(0).max(100).step(0.1).name('Distance')
+pointLightFolder.add(pointLight, 'decay').min(0).max(100).step(0.1).name('Decay')
 pointLightFolder.addColor(pointLight, 'color')
 
 // Point Light position updater
@@ -110,41 +113,93 @@ plPositionFolder.add(pointLight.position, 'z').min(-10).max(10).step(0.1).name('
 /*
 //RectArea Light
 */
-const rectAreaLight = new THREE.RectAreaLight(0x4c00ff, 1, 1, 1)
-rectAreaLight.position.set(-1.5, 0, 1.5)
-rectAreaLight.lookAt(new THREE.Vector3(0,0,0))
+const rectAreaLight = new THREE.RectAreaLight(0x0008ff, 1.08, 4.02, 0.82)
+rectAreaLight.position.set(-1.4, -0.1, 3.3)
+rectAreaLight.rotation.y = 5.6898
 scene.add(rectAreaLight)
 
 const rectAreaLightFolder = gui.addFolder('RectAreaLight')
-rectAreaLightFolder.add(rectAreaLight, 'intensity').min(0).max(10).step(0.01).name('rectAreaLight')
+rectAreaLightFolder.close()
+rectAreaLightFolder.add(rectAreaLight, 'intensity').min(0).max(10).step(0.01).name('Intensity')
+rectAreaLightFolder.addColor(rectAreaLight, 'color')
+rectAreaLightFolder.add(rectAreaLight, 'width').min(0).max(10).step(0.01).name('Width')
+rectAreaLightFolder.add(rectAreaLight, 'height').min(0).max(10).step(0.01).name('Height')
+
+// RectArea Light position updater
+const rlPositionFolder = rectAreaLightFolder.addFolder('Position')
+rlPositionFolder.close()
+rlPositionFolder.add(rectAreaLight.position, 'x').min(-10).max(10).step(0.1).name('x')
+rlPositionFolder.add(rectAreaLight.position, 'y').min(-5).max(5).step(0.1).name('y')
+rlPositionFolder.add(rectAreaLight.position, 'z').min(-10).max(10).step(0.1).name('z')
+
+//RectArea Light rotation updater
+const rlRotationFolder = rectAreaLightFolder.addFolder('Rotaton')
+rlRotationFolder.close()
+rlRotationFolder.add(rectAreaLight.rotation, 'x').min(0).max(Math.PI*2).step(Math.PI/180).name('x')
+rlRotationFolder.add(rectAreaLight.rotation, 'y').min(0).max(Math.PI*2).step(Math.PI/180).name('y')
+rlRotationFolder.add(rectAreaLight.rotation, 'z').min(0).max(Math.PI*2).step(Math.PI/180).name('z')
 
 /*
 //Spot Light
 */
-const spotLight = new THREE.SpotLight(0x78ff00, 0.5, 10, Math.PI * 0.1, 0.25, 1)
-spotLight.position.set(0, 2, 3)
-spotLight.target.position.x = -1.75
-scene.add(spotLight, spotLight.target)
+const spotLight = new THREE.SpotLight(0xffffff, 1.15, 10.2, 0.7766715, 1, 1.8)
+spotLight.position.set(-1.5, 3.7, 3.8)
+spotLight.rotation.x = 5.986479
+scene.add(spotLight)
 
 const spotLightFolder = gui.addFolder('SpotLight')
-spotLightFolder.add(spotLight, 'intensity').min(0).max(10).step(0.01).name('spotLight')
+spotLightFolder.close()
+spotLightFolder.add(spotLight, 'intensity').min(0).max(10).step(0.01).name('Intensity')
+spotLightFolder.addColor(spotLight, 'color')
+spotLightFolder.add(spotLight, 'distance').min(0).max(100).step(0.1).name('Distance')
+spotLightFolder.add(spotLight, 'angle').min(0).max(Math.PI/2).step(Math.PI/360).name('Angle')
+spotLightFolder.add(spotLight, 'penumbra').min(0).max(1).step(0.001).name('Penumbra')
+spotLightFolder.add(spotLight, 'decay').min(0).max(10).step(0.01).name('Deacay')
+
+//SpotLight position updater
+const slPositionFolder = spotLightFolder.addFolder('Position')
+slPositionFolder.close()
+slPositionFolder.add(spotLight.position, 'x').min(-10).max(10).step(0.1).name('x')
+slPositionFolder.add(spotLight.position, 'y').min(-5).max(5).step(0.1).name('y')
+slPositionFolder.add(spotLight.position, 'z').min(-10).max(10).step(0.1).name('z')
+
+//SpotLight rotation updater
+const slRotationFolder = spotLightFolder.addFolder('Rotaton')
+slRotationFolder.close()
+slRotationFolder.add(spotLight.rotation, 'x').min(0).max(Math.PI*2).step(Math.PI/180).name('x')
+slRotationFolder.add(spotLight.rotation, 'y').min(0).max(Math.PI*2).step(Math.PI/180).name('y')
+slRotationFolder.add(spotLight.rotation, 'z').min(0).max(Math.PI*2).step(Math.PI/180).name('z')
+
 
 
 /*
 // Helpers
 */
+const helperOn = {
+    hlHelper: false,
+    dlHelper: false,
+    plHelper: false,
+    slHelper: false,
+    rlHelper: false,
+}
+
 const hemisphericalLightHelper = new THREE.HemisphereLightHelper(hemisphericalLight, 0.3)
 const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.3)
 const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.3)
 const spotLightHelper = new THREE.SpotLightHelper(spotLight)
 const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
 
+// Toggling Helpers
+hemisphericalLightFolder.add(helperOn, 'hlHelper').name('Helper Toggle').onChange((e) => {e ? scene.add(hemisphericalLightHelper) : scene.remove(hemisphericalLightHelper)})
+directionalLightFolder.add(helperOn, 'dlHelper').name('Helper Toggle').onChange((e) => {e ? scene.add(directionalLightHelper) : scene.remove(directionalLightHelper)})
+pointLightFolder.add(helperOn, 'plHelper').name('Helper Toggle').onChange((e) => {e ? scene.add(pointLightHelper) : scene.remove(pointLightHelper)})
+spotLightFolder.add(helperOn, 'slHelper').name('Helper Toggle').onChange((e) => {e ? scene.add(spotLightHelper) : scene.remove(spotLightHelper)})
+rectAreaLightFolder.add(helperOn, 'rlHelper').name('Helper Toggle').onChange((e) => {e ? scene.add(rectAreaLightHelper) : scene.remove(rectAreaLightHelper)})
+
 window.requestAnimationFrame(() => {
     spotLightHelper.update()
     directionalLightHelper.update()
 })
-
-scene.add(hemisphericalLightHelper, pointLightHelper, directionalLightHelper, spotLightHelper, rectAreaLightHelper)
 
 
 /**

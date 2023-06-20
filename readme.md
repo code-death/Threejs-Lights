@@ -14,3 +14,6 @@ npm run dev
 # Build for production in the dist/ directory
 npm run build
 ```
+This is a basic setup to test and understand the effects of different lights in Threejs
+
+Any suggestions are appreciated
